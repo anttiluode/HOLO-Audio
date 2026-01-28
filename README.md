@@ -1,6 +1,6 @@
 # HOLO-Audio — Geometric Neural Audio Codec
 
-![GUI](./holo-studio.png)
+![GUI](holo-studio.png)
 
 HOLO-Audio is a PyTorch-based **neural audio codec** that treats audio as a **geometric / harmonic interference pattern** rather than a raw waveform.
 
