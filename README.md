@@ -12,6 +12,25 @@ This repository contains both:
 
 ---
 
+## Architecture
+
+HOLO uses a two-stage neural pipeline:
+
+### Stage 1: Harmonic Encoder (CVNN-style)
+- Single linear projection: audio chunk -> harmonic coefficients
+- Output: N harmonics x 2 (phase + amplitude representation)
+- Runs near-instantaneously
+- This is the "compression" - stored in .holo files
+
+### Stage 2: Neural Vocoder (Decoder)
+- 3-layer network with sinusoidal activations (SIREN-style)
+- Learns to reconstruct waveforms from harmonic coefficients
+- Trains remarkably fast (5 epochs for passable quality)
+- The sine activations force periodicity-aware reconstruction
+
+The encoder learns WHAT to compress. The vocoder learns HOW to reconstruct.
+Both train jointly end-to-end, but serve distinct roles at runtime.
+
 ## 🧠 Core Ideas
 
 ### Harmonic Neural Representation
