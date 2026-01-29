@@ -41,6 +41,63 @@ Lower tiers = extreme compression, higher tiers = fidelity.
 
 ---
 
+## Benchmarks
+
+Tested on 17-minute audio sample (44.1kHz) using automated metrics suite.
+
+(Holo_metrics.py) 
+
+
+### Quality vs Compression
+
+| Harmonics | SNR (dB) | PSNR (dB) | Envelope Correlation | Bitrate (kbps) | Compression Ratio |
+|-----------|----------|-----------|----------------------|----------------|-------------------|
+| 16 | 5.27 | 29.21 | 0.937 | 6.2 | 114x |
+| 32 | 8.61 | 32.56 | 0.981 | 13.1 | 54x |
+| 64 | 15.26 | 39.21 | 0.991 | 23.8 | 30x |
+| 128 | 18.73 | 42.67 | 0.995 | 46.2 | 15x |
+| 256 | 18.86 | 42.80 | 0.995 | 75.1 | 9x |
+
+### Perceptual Metrics
+
+| Harmonics | Log Spectral Distance (dB) | Transient Preservation | Phase Coherence |
+|-----------|----------------------------|------------------------|-----------------|
+| 16 | 22.36 | 17.0% | 0.345 |
+| 32 | 21.52 | 28.4% | 0.368 |
+| 64 | 19.20 | 44.1% | 0.371 |
+| 128 | 17.94 | 56.4% | 0.385 |
+| 256 | 17.75 | 57.5% | 0.377 |
+
+### Key Findings
+
+**Strengths:**
+- Excellent envelope preservation (0.99+ correlation at 64H and above)
+- Extreme compression ratios at low tiers (114x at 16H)
+- Smooth quality scaling across harmonic tiers
+
+**Current Limitations:**
+- Transient preservation needs improvement (56% at 128H)
+- Phase coherence is limited (~0.38 across all tiers)
+- Diminishing returns above 128 harmonics
+
+### Reference Comparison
+
+| Codec | Typical Bitrate | Typical SNR |
+|-------|-----------------|-------------|
+| MP3 128 kbps | 128 | 15-20 dB |
+| MP3 320 kbps | 320 | 25-30 dB |
+| Opus 64 kbps | 64 | 20-25 dB |
+| HOLO 128H | 46 | 18.7 dB |
+| HOLO 64H | 24 | 15.3 dB |
+
+### Interpretation
+
+- SNR above 20 dB: Generally good quality
+- SNR above 30 dB: Hard to distinguish from original
+- Envelope Correlation above 0.95: Excellent dynamic preservation
+- The 128H tier achieves near-MP3-128 quality at roughly 1/3 the bitrate
+- Low tiers (16-32H) function as "sine wave speech" - intelligible but abstract
+
 ## 📊 Compression Characteristics
 
 - Compression depends on **harmonic tier**, not bit-rate
