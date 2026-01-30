@@ -1,10 +1,14 @@
 # HOLO-Audio — Geometric Neural Audio Codec
 
-(EDIT: Fixed a packing error when loading holo files. 
-I had not noticed that the released version had this as the earlier versions worked and I had not tested it.
-Also, I noticed the loaded holo files are noisier than the signal testing shows due to missing floating point accuracy. 
-Ie, when they are first encoded the floating point is longer than in the loaded one where they are capped to first few 
-decimals. - So the metrics are not really true for loaded holo files. )
+(EDIT:
+
+I found a big problem. The initial version sounds pretty ok.. But I figured the app actually uses long floating points.
+When you load the holo files (which i had messed with earlier but had not noticed this), it uses less floating points.
+Making the holo files sound noisier. If you give it more floating points, you can make the files sound better, but
+then their size becomes so large that the whole idea behind holo becomes moot. It has been interesting test. But I 
+guess it did not survive this initial onslaught at least like this.
+
+Also the version i had released did not load the holo files due to packing error. Now it works.)
 
 ![GUI](./HOLO-Studio.png)
 
