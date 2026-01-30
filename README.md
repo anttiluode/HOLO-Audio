@@ -1,8 +1,10 @@
 # HOLO-Audio — Geometric Neural Audio Codec
 
 (EDIT: Fixed a packing error when loading holo files. 
-
-I had not noticed that the released version had this as the earlier versions worked and I had not tested it. )
+I had not noticed that the released version had this as the earlier versions worked and I had not tested it.
+Also, I noticed the loaded holo files are noisier than the signal testing shows due to missing floating point accuracy. 
+Ie, when they are first encoded the floating point is longer than in the loaded one where they are capped to first few 
+decimals. - So the metrics are not really true for loaded holo files. )
 
 ![GUI](./HOLO-Studio.png)
 
@@ -72,6 +74,8 @@ Tested on 17-minute audio sample (44.1kHz) using automated metrics suite.
 
 
 ### Quality vs Compression
+
+(not true for loaded holo files)
 
 | Harmonics | SNR (dB) | PSNR (dB) | Envelope Correlation | Bitrate (kbps) | Compression Ratio |
 |-----------|----------|-----------|----------------------|----------------|-------------------|
