@@ -1,5 +1,9 @@
 # HOLO-Audio — Geometric Neural Audio Codec
 
+(EDIT: Fixed a packing error when loading holo files. 
+
+I had not noticed that the released version had this as the earlier versions worked and I had not tested it. )
+
 ![GUI](./HOLO-Studio.png)
 
 HOLO-Audio is a PyTorch-based **neural audio codec** that treats audio as a **geometric / harmonic interference pattern** rather than a raw waveform.
