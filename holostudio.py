@@ -37,7 +37,7 @@ class LogHoloEncoder(nn.Module):
     def forward(self, x): return self.encoder(x)
 
 # ==============================================================================
-# 2. VBR PACKER (V2 Format with Header)
+# 2. VBR PACKER (V2 Format with Header) - FIXED
 # ==============================================================================
 class HoloPackerV2:
     @staticmethod
@@ -48,8 +48,8 @@ class HoloPackerV2:
         q = np.round((flat - mn) * scale).astype(np.uint8)
         
         # HEADER V2: [Magic:4] [Ver:1] [Harmonics:4] [SR:4] [Min:4] [Max:4] [Shape0:4] [Shape1:4]
-        # Total Header = 29 Bytes
-        header = struct.pack('4sBIIffII', b'HOLO', 2, int(harmonics), int(sample_rate), float(mn), float(mx), dna_tensor.shape[0], dna_tensor.shape[1])
+        # FIX: Added '<' to force standard alignment. This ensures exact 29 bytes with no padding.
+        header = struct.pack('<4sBIIffII', b'HOLO', 2, int(harmonics), int(sample_rate), float(mn), float(mx), dna_tensor.shape[0], dna_tensor.shape[1])
         
         return header + zlib.compress(q.tobytes(), level=9)
 
@@ -59,10 +59,12 @@ class HoloPackerV2:
         if b_data[:4] != b'HOLO':
             raise ValueError("Not a valid HOLO file.")
         
+        # FIX: Explicitly look at byte 4 for version (standard alignment guarantees this position)
         version = b_data[4]
+        
         if version == 2:
-            # Parse V2
-            magic, ver, h, sr, mn, mx, s0, s1 = struct.unpack('4sBIIffII', b_data[:29])
+            # FIX: Added '<' to match the packer. This tells struct to expect exactly 29 bytes.
+            magic, ver, h, sr, mn, mx, s0, s1 = struct.unpack('<4sBIIffII', b_data[:29])
             compressed_data = b_data[29:]
         else:
             # Fallback for old files (assuming standard V1 struct)
