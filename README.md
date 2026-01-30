@@ -8,7 +8,13 @@ Making the holo files sound noisier. If you give it more floating points, you ca
 then their size becomes so large that the whole idea behind holo becomes moot. It has been interesting test. But I 
 guess it did not survive this initial onslaught at least like this.
 
-Also the version i had released did not load the holo files due to packing error. Now it works.)
+Also the version i had released did not load the holo files due to packing error. Now it works.
+
+It loses to mp3. Yes. It loses to mp3 in quality and compression. SO no magic here. Video about me finding out that: 
+
+https://youtu.be/euZpUOgxCjE )
+
+Ok from here on its all deep bullshit: 
 
 ![GUI](./HOLO-Studio.png)
 
